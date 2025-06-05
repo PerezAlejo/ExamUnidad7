@@ -68,24 +68,21 @@ preguntas = [
      "opciones": ["def", "class", "struct", "object"], "respuesta": 1}
 ]
 
-
 class Bienvenida(QWidget):
     def __init__(self, iniciar_callback):
         super().__init__()
         self.layout = QVBoxLayout()
         self.label = QLabel("Bienvenido al Examen Final\n\nHaz clic en 'Iniciar' para comenzar. Tienes 2 horas para completar el examen.")
         self.layout.addWidget(self.label)
-
         self.boton_iniciar = QPushButton("Iniciar")
         self.boton_iniciar.clicked.connect(iniciar_callback)
         self.layout.addWidget(self.boton_iniciar)
-
         self.setLayout(self.layout)
 
 class QuizApp(QWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Examen de Final de Pprogramación Básica")
+        self.setWindowTitle("Examen de Final de Programación Básica")
         self.setGeometry(200, 200, 700, 400)
 
         self.stack = QStackedLayout()
@@ -115,13 +112,17 @@ class QuizApp(QWidget):
         self.opcion_group = QButtonGroup()
         self.opcion_groupbox.setLayout(self.opcion_layout)
 
-        self.siguiente_btn = QPushButton("Siguiente")
-        self.siguiente_btn.clicked.connect(self.validar_respuesta)
-
         self.quiz_layout.addWidget(self.true_radio)
         self.quiz_layout.addWidget(self.false_radio)
         self.quiz_layout.addWidget(self.opcion_groupbox)
+
+        self.siguiente_btn = QPushButton("Siguiente")
+        self.siguiente_btn.clicked.connect(self.validar_respuesta)
+        self.regresar_btn = QPushButton("Regresar")
+        self.regresar_btn.clicked.connect(self.regresar_pregunta)
+
         self.quiz_layout.addWidget(self.siguiente_btn)
+        self.quiz_layout.addWidget(self.regresar_btn)
 
         self.quiz_widget.setLayout(self.quiz_layout)
         self.stack.addWidget(self.quiz_widget)
@@ -206,6 +207,13 @@ class QuizApp(QWidget):
             self.mostrar_pregunta()
         else:
             self.terminar_examen()
+
+    def regresar_pregunta(self):
+        if self.pregunta_actual > 0:
+            self.pregunta_actual -= 1
+            self.mostrar_pregunta()
+        else:
+            QMessageBox.information(self, "Aviso", "Ya estás en la primera pregunta.")
 
     def actualizar_temporizador(self):
         self.tiempo_restante -= 1
