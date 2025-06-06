@@ -219,3 +219,4 @@ if __name__ == '__main__':
     quiz = QuizApp()
     quiz.show()
     sys.exit(app.exec_())
+    
