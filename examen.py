@@ -131,6 +131,7 @@ class QuizApp(QWidget):
         self.puntaje = 0
         self.respuestas_incorrectas = []
 
+        self.preguntas = []
         self.tiempo_restante = 7200
         self.timer = QTimer()
         self.timer.timeout.connect(self.actualizar_temporizador)
@@ -138,6 +139,8 @@ class QuizApp(QWidget):
         self.mostrar_pregunta()
 
     def comenzar_examen(self):
+        self.preguntas = preguntas.copy()
+        random.shuffle(self.preguntas)
         self.stack.setCurrentWidget(self.quiz_widget)
         self.mostrar_pregunta()
         self.timer.start(1000)
@@ -155,7 +158,7 @@ class QuizApp(QWidget):
         self.opcion_rbs = []
         self.opcion_group.setExclusive(True)
 
-        pregunta = preguntas[self.pregunta_actual]
+        pregunta = self.preguntas[self.pregunta_actual] 
         self.pregunta_label.setText(f"Pregunta {self.pregunta_actual + 1}: {pregunta['pregunta']}")
 
         if pregunta["tipo"] == "TF":
@@ -173,7 +176,7 @@ class QuizApp(QWidget):
                 self.opcion_layout.addWidget(rb)
 
     def validar_respuesta(self):
-        pregunta = preguntas[self.pregunta_actual]
+        pregunta = self.preguntas[self.pregunta_actual]
         respuesta_usuario = None
 
         if pregunta["tipo"] == "TF":
@@ -203,7 +206,7 @@ class QuizApp(QWidget):
                 self.respuestas_incorrectas.append((pregunta["pregunta"], pregunta["opciones"][correcta], seleccionada))
 
         self.pregunta_actual += 1
-        if self.pregunta_actual < len(preguntas):
+        if self.pregunta_actual < len(self.preguntas):
             self.mostrar_pregunta()
         else:
             self.terminar_examen()
@@ -223,7 +226,7 @@ class QuizApp(QWidget):
 
     def terminar_examen(self):
         self.timer.stop()
-        calificacion = (self.puntaje / len(preguntas)) * 10
+        calificacion = (self.puntaje / len(self.preguntas)) * 10
         resumen = f"Examen finalizado.\n\nRespuestas correctas: {self.puntaje} de {len(preguntas)}\nCalificación: {calificacion:.2f}/10\n"
         if self.respuestas_incorrectas:
             resumen += "\nPreguntas incorrectas:\n"
