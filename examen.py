@@ -16,8 +16,7 @@ preguntas = [
     {"tipo": "TF", "pregunta": "Los diccionarios en Python se definen con corchetes [].", "respuesta": False},
     {"tipo": "TF", "pregunta": "Una clase en Python se define con la palabra clave 'class'.", "respuesta": True},
     {"tipo": "TF", "pregunta": "El código escrito en Python3 funciona en un entorno con Python2.", "respuesta": False},
-    {"tipo": "TF", "pregunta": "La variable _Humedad maracaría error.", "respuesta": False},
-    {"tipo": "TF", "pregunta": "La variable _Humedad maracaría error.", "respuesta": False},
+    {"tipo": "TF", "pregunta": "La variable _Humedad marcaría error.", "respuesta": False},
     {"tipo": "TF", "pregunta": "La estructura de control while permite ejecutar repetidamente un bloque de código mientras una condición sea verdadera.", "respuesta": True},
     {"tipo": "MC", "pregunta": "¿Quién creó Python?", 
      "opciones": ["Dennis Ritchie", "Guido van Rossum", "James Gosling", "Bjarne Stroustrup"], "respuesta": 1},
@@ -27,46 +26,30 @@ preguntas = [
      "opciones": ["function", "def", "func", "define"], "respuesta": 1},
     {"tipo": "MC", "pregunta": "¿Qué tipo de dato es Falso?", 
      "opciones": ["Entero", "Cadena", "Flotante", "Booleano"], "respuesta": 3},
-
-     {"tipo": "MC", "pregunta": "Es un símbolo o palabra que especifica que una operación va a ser ejecutada", 
+    {"tipo": "MC", "pregunta": "Es un símbolo o palabra que especifica que una operación va a ser ejecutada", 
      "opciones": ["Operador", "Variable", "Clase", "Función"], "respuesta": 0},
-
-     {"tipo": "MC", "pregunta": "Su finalidad es ejecutar un código que será reutilizado", 
+    {"tipo": "MC", "pregunta": "Su finalidad es ejecutar un código que será reutilizado", 
      "opciones": ["Operador", "Variable", "Clase", "Función"], "respuesta": 3},
-
-     {"tipo": "MC", "pregunta": "Es un símbolo o palabra que especifica que una operación va a ser ejecutada", 
-     "opciones": ["Operador", "Variable", "Clase", "Función"], "respuesta": 0},
-
-     {"tipo": "MC", "pregunta": "Es un espacio en memoria para almacenar datos", 
+    {"tipo": "MC", "pregunta": "Es un espacio en memoria para almacenar datos", 
      "opciones": ["Operador", "Variable", "Clase", "Función"], "respuesta": 1},
-
-     {"tipo": "MC", "pregunta": " Es un molde o plantilla que define las características (atributos) y comportamientos (métodos) que tendrán los objetos que se creen a partir de ella", 
+    {"tipo": "MC", "pregunta": " Es un molde o plantilla que define las características (atributos) y comportamientos (métodos) que tendrán los objetos que se creen a partir de ella", 
      "opciones": ["Operador", "Variable", "Clase", "Función"], "respuesta": 2},
-
-     {"tipo": "MC", "pregunta": " ¿Con que palabra se pueden  usar las librerias estandar de python?", 
+    {"tipo": "MC", "pregunta": " ¿Con que palabra se pueden  usar las librerias estandar de python?", 
      "opciones": ["Import", "from", "def", "for"], "respuesta": 0},
-
-     {"tipo": "MC", "pregunta": "Son las propiedades de los objetos en POO", 
+    {"tipo": "MC", "pregunta": "Son las propiedades de los objetos en POO", 
      "opciones": ["Atributos", "Módulos", "Métodos", "Paradigmas"], "respuesta": 0},
-
-     {"tipo": "MC", "pregunta": "Son las acciones de los objetos", 
+    {"tipo": "MC", "pregunta": "Son las acciones de los objetos", 
      "opciones": ["Atributos", "Módulos", "Métodos", "Paradigmas"], "respuesta": 2},
-
-     {"tipo": "MC", "pregunta": " Ayudan a organizar el código en diferentes archivos y a que sea más fácil de entender", 
+    {"tipo": "MC", "pregunta": " Ayudan a organizar el código en diferentes archivos y a que sea más fácil de entender", 
      "opciones": ["Atributos", "Módulos", "Métodos", "Paradigmas"], "respuesta": 1},
-
-
-     {"tipo": "MC", "pregunta": " Elimina un elemento de la lista  por su index", 
+    {"tipo": "MC", "pregunta": " Elimina un elemento de la lista  por su index", 
      "opciones": ["remove()", "pop()", "sort", "append()"], "respuesta": 1},
-
-     {"tipo": "MC", "pregunta": " Agrega un elemento al final de la lista", 
-     "opciones": ["remove()", "pop()", "sort", "append()"], "respuesta": 1},
-
-
-
+    {"tipo": "MC", "pregunta": " Agrega un elemento al final de la lista", 
+     "opciones": ["remove()", "pop()", "sort", "append()"], "respuesta": 3},
     {"tipo": "MC", "pregunta": "¿Qué palabra clave se usa para crear una clase en Python?", 
      "opciones": ["def", "class", "struct", "object"], "respuesta": 1}
 ]
+
 
 class Bienvenida(QWidget):
     def __init__(self, iniciar_callback):
@@ -80,6 +63,7 @@ class Bienvenida(QWidget):
         self.layout.addWidget(self.boton_iniciar)
 
         self.setLayout(self.layout)
+
 
 class QuizApp(QWidget):
     def __init__(self):
@@ -129,15 +113,15 @@ class QuizApp(QWidget):
         self.puntaje = 0
         self.respuestas_incorrectas = []
 
-        self.preguntas = []
+        self.preguntas = []  
         self.tiempo_restante = 7200
         self.timer = QTimer()
         self.timer.timeout.connect(self.actualizar_temporizador)
 
 
     def comenzar_examen(self):
-        self.preguntas = preguntas.copy()
-        random.shuffle(self.preguntas)
+        self.preguntas = preguntas.copy()  
+        random.shuffle(self.preguntas)     
         self.stack.setCurrentWidget(self.quiz_widget)
         self.mostrar_pregunta()
         self.timer.start(1000)
@@ -155,7 +139,7 @@ class QuizApp(QWidget):
         self.opcion_rbs = []
         self.opcion_group.setExclusive(True)
 
-        pregunta = self.preguntas[self.pregunta_actual] 
+        pregunta = self.preguntas[self.pregunta_actual]  
         self.pregunta_label.setText(f"Pregunta {self.pregunta_actual + 1}: {pregunta['pregunta']}")
 
         if pregunta["tipo"] == "TF":
@@ -173,7 +157,7 @@ class QuizApp(QWidget):
                 self.opcion_layout.addWidget(rb)
 
     def validar_respuesta(self):
-        pregunta = self.preguntas[self.pregunta_actual]
+        pregunta = self.preguntas[self.pregunta_actual]  
         respuesta_usuario = None
 
         if pregunta["tipo"] == "TF":
@@ -203,7 +187,7 @@ class QuizApp(QWidget):
                 self.respuestas_incorrectas.append((pregunta["pregunta"], pregunta["opciones"][correcta], seleccionada))
 
         self.pregunta_actual += 1
-        if self.pregunta_actual < len(self.preguntas):
+        if self.pregunta_actual < len(self.preguntas):  
             self.mostrar_pregunta()
         else:
             self.terminar_examen()
@@ -216,8 +200,8 @@ class QuizApp(QWidget):
 
     def terminar_examen(self):
         self.timer.stop()
-        calificacion = (self.puntaje / len(self.preguntas)) * 10
-        resumen = f"Examen finalizado.\n\nRespuestas correctas: {self.puntaje} de {len(preguntas)}\nCalificación: {calificacion:.2f}/10\n"
+        calificacion = (self.puntaje / len(self.preguntas)) * 10  
+        resumen = f"Examen finalizado.\n\nRespuestas correctas: {self.puntaje} de {len(self.preguntas)}\nCalificación: {calificacion:.2f}/10\n"
         if self.respuestas_incorrectas:
             resumen += "\nPreguntas incorrectas:\n"
             for pregunta, correcta, seleccionada in self.respuestas_incorrectas:
@@ -225,6 +209,7 @@ class QuizApp(QWidget):
 
         QMessageBox.information(self, "Resultado", resumen)
         self.close()
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
