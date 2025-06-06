@@ -67,8 +67,6 @@ preguntas = [
     {"tipo": "MC", "pregunta": "¿Qué palabra clave se usa para crear una clase en Python?", 
      "opciones": ["def", "class", "struct", "object"], "respuesta": 1}
 ]
-
-
 class Bienvenida(QWidget):
     def __init__(self, iniciar_callback):
         super().__init__()
