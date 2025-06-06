@@ -135,7 +135,6 @@ class QuizApp(QWidget):
         self.timer = QTimer()
         self.timer.timeout.connect(self.actualizar_temporizador)
 
-        self.mostrar_pregunta()
 
     def comenzar_examen(self):
         self.preguntas = preguntas.copy()
